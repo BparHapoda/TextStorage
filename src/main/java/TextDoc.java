@@ -2,6 +2,7 @@
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TextDoc implements Serializable {
@@ -53,4 +54,16 @@ public class TextDoc implements Serializable {
         return string;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextDoc textDoc = (TextDoc) o;
+        return Objects.equals(text, textDoc.text) && Objects.equals(name, textDoc.name) && Objects.equals(author, textDoc.author) && Objects.equals(date, textDoc.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text, name, author, date);
+    }
 }

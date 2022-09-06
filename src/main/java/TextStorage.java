@@ -26,7 +26,7 @@ public class TextStorage implements Storage {
 
     public ArrayList<TextDoc> getSortedCollection(Sort sort) {
         ArrayList<TextDoc> textDocs = createFileList();
-        //   return  textDocs;
+
         ArrayList<TextDoc> sortedDocs = new ArrayList<>();
 
         switch (sort) {

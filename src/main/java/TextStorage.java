@@ -12,7 +12,7 @@ public class TextStorage implements Storage {
     private final String configFileName = "textcollection.tcol";
 
     public void saveFile(TextDoc textDoc) {
-        try (FileOutputStream fos = new FileOutputStream(rootPath  + textDoc.getName());
+        try (FileOutputStream fos = new FileOutputStream(rootPath + textDoc.getName());
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(textDoc);
         } catch (IOException e) {
@@ -20,11 +20,11 @@ public class TextStorage implements Storage {
         }
     }
 
-    public ArrayList<TextDoc> getSortedCollection(){
+    public ArrayList<TextDoc> getSortedCollection() {
         return getSortedCollection(Sort.NAME);
     }
 
-    public ArrayList<TextDoc> getSortedCollection(Sort sort){
+    public ArrayList<TextDoc> getSortedCollection(Sort sort) {
         ArrayList<TextDoc> textDocs = createFileList();
         //   return  textDocs;
         ArrayList<TextDoc> sortedDocs = new ArrayList<>();
@@ -34,8 +34,12 @@ public class TextStorage implements Storage {
                 sortedDocs = (ArrayList<TextDoc>) textDocs.stream().sorted(new Comparator<TextDoc>() {
                     @Override
                     public int compare(TextDoc o1, TextDoc o2) {
-                        if (o1.getText().length()<o2.getText().length()){return 1;}
-                        if (o1.getText().length()>o2.getText().length()){return -1;}
+                        if (o1.getText().length() < o2.getText().length()) {
+                            return 1;
+                        }
+                        if (o1.getText().length() > o2.getText().length()) {
+                            return -1;
+                        }
                         return 0;
                     }
                 }).collect(Collectors.toList());
@@ -48,14 +52,18 @@ public class TextStorage implements Storage {
                 sortedDocs = (ArrayList<TextDoc>) textDocs.stream().sorted(new Comparator<TextDoc>() {
                     @Override
                     public int compare(TextDoc o1, TextDoc o2) {
-                        if (o2.getDate().isAfter(o1.getDate())){return 1;}
-                        if (o2.getDate().isBefore(o1.getDate())){return -1;}
+                        if (o2.getDate().isAfter(o1.getDate())) {
+                            return 1;
+                        }
+                        if (o2.getDate().isBefore(o1.getDate())) {
+                            return -1;
+                        }
                         return 0;
                     }
                 }).collect(Collectors.toList());
                 break;
             case NAME:
-                sortedDocs=textDocs;
+                sortedDocs = textDocs;
 
         }
 
@@ -84,6 +92,7 @@ public class TextStorage implements Storage {
         }
 
     }
+
     public boolean isCollectionExists() {
         File file = new File(configFileName);
         return file.exists();
@@ -111,7 +120,12 @@ public class TextStorage implements Storage {
     }
 
     private File getFile(TextDoc textDoc) {
-        return new File(rootPath + textDoc.getName());
+
+        return new File(getFileName(rootPath,textDoc));
+    }
+    public String getFileName(String rootPath,TextDoc textDoc){
+        String fileName = rootPath+textDoc.getName();
+        return fileName;
     }
 }
 

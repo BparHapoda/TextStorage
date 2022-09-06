@@ -136,7 +136,7 @@ public class Console {
 
     public boolean pageContains(Page page, String lookingString) {
 
-        List<String> find = page.getText().stream().filter(x -> x.contains(lookingString)).toList();
+        List<String> find = page.getText().stream().filter(x -> x.contains(lookingString)).collect(Collectors.toList());
         return find.size() != 0;
     }
 
@@ -167,7 +167,7 @@ public class Console {
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         while (true) {
-            text = bufferedReader.readLine();
+            text = bufferedReader.readLine() ;
             if (text.equals("ESC")) {
                 break;
             }
